@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>恭喜你获得孙悟空地狱火皮肤！</title>
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    position: relative;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.prize-box {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+    max-width: 400px;
+    width: 100%;
+    animation: bounceIn 0.6s ease;
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    70% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.sparkle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: gold;
+    border-radius: 50%;
+    animation: sparkle 1.5s infinite;
+}
+
+.sparkle:nth-child(1) { top: 10px; left: 10px; animation-delay: 0s; }
+.sparkle:nth-child(2) { top: 10px; right: 10px; animation-delay: 0.5s; }
+.sparkle:nth-child(3) { bottom: 10px; right: 10px; animation-delay: 1s; }
+
+@keyframes sparkle {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.5; }
+}
+
+h1 { font-size: 28px; color: #333; margin-bottom: 20px; }
+
+.phone-image {
+    font-size: 80px;
+    margin: 20px 0;
+    animation: shake 0.5s infinite;
+}
+
+@keyframes shake {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+}
+
+h2 { font-size: 22px; color: #333; margin-bottom: 10px; }
+
+.subtitle {
+    font-size: 18px;
+    color: #e74c3c;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.count-text { font-size: 14px; color: #999; margin-bottom: 20px; }
+
+.claim-btn {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    border: none;
+    padding: 15px 50px;
+    font-size: 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(240, 147, 251, 0.4);
+}
+
+.claim-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(240, 147, 251, 0.6);
+}
+
+.timer { margin-top: 15px; font-size: 14px; color: #e74c3c; }
+.timer span { font-weight: bold; font-size: 18px; }
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal.show { display: flex; }
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 300px;
+    animation: popIn 0.3s ease;
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.modal-content h2 { margin-bottom: 15px; }
+.modal-content p { color: #666; margin-bottom: 20px; }
+
+.modal-btn {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-btn:hover { background: #764ba2; }
+
+.final {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.final h2, .final p { color: white; }
+
+.share-text {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    border-radius: 10px;
+    margin: 15px 0;
+    font-size: 14px;
+}
+
+.restart-btn {
+    background: white;
+    color: #764ba2;
+    border: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.restart-btn:hover { transform: scale(1.05); }
+
+.falling-emojis {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.emoji {
+    position: absolute;
+    font-size: 30px;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+.run-away {
+    position: fixed !important;
+    transition: all 0.2s ease !important;
+    z-index: 100;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="prize-box">
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <h1>🎉 恭喜你！🎉</h1>
+            <div class="phone-image">🔥🐵🔥</div>
+            <h2>你获得了 孙悟空-地狱火皮肤！</h2>
+            <p class="subtitle">价值 ¥168 元</p>
+            <p class="count-text">已有 <span id="count">1,234,567</span> 人领取</p>
+            <button id="claimBtn" class="claim-btn">立即领取</button>
+            <p class="timer">限时优惠：<span id="timer">00:59</span></p>
+        </div>
+        
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <h2 id="modalTitle">😅 再试一次！</h2>
+                <p id="modalText">按钮好像有点调皮...</p>
+                <button id="modalBtn" class="modal-btn">继续领取</button>
+            </div>
+        </div>
+        
+        <div id="finalModal" class="modal">
+            <div class="modal-content final">
+                <h2>🎊 整蛊成功！🎊</h2>
+                <p>别担心，没有地狱火皮肤</p>
+                <p>但你有我这个朋友呀！😄</p>
+                <div class="share-text">把这个链接分享给你的朋友吧！</div>
+                <button onclick="location.reload()" class="restart-btn">再来一次</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="falling-emojis"></div>
+    
+    <script>
+let attempts = 0;
+const maxAttempts = 10;
+const claimBtn = document.getElementById('claimBtn');
+const modal = document.getElementById('modal');
+const finalModal = document.getElementById('finalModal');
+const modalBtn = document.getElementById('modalBtn');
+const modalTitle = document.getElementById('modalTitle');
+const modalText = document.getElementById('modalText');
+
+const messages = [
+    { title: '😅 再试一次！', text: '按钮好像有点调皮...' },
+    { title: '🤔 咦？', text: '怎么点不到呢？' },
+    { title: '😂 哈哈！', text: '你抓不到我！' },
+    { title: '🏃 快跑！', text: '有人要抓我！' },
+    { title: '😜 略略略~', text: '就是点不到！' },
+    { title: '🤪 抓不到！', text: '我跑得可快了！' },
+    { title: '😤 别放弃！', text: '再试一次嘛~' },
+    { title: '🧐 认真的？', text: '你真的想要吗？' },
+    { title: '😏 最后一次', text: '这次一定行！' },
+    { title: '🎊 恭喜！', text: '你终于成功了！' }
+];
+
+function moveButton() {
+    const maxX = window.innerWidth - claimBtn.offsetWidth - 20;
+    const maxY = window.innerHeight - claimBtn.offsetHeight - 20;
+    const randomX = Math.max(20, Math.random() * maxX);
+    const randomY = Math.max(20, Math.random() * maxY);
+    claimBtn.classList.add('run-away');
+    claimBtn.style.left = randomX + 'px';
+    claimBtn.style.top = randomY + 'px';
+}
+
+function showModal() {
+    const message = messages[Math.min(attempts - 1, messages.length - 1)];
+    modalTitle.textContent = message.title;
+    modalText.textContent = message.text;
+    modal.classList.add('show');
+}
+
+function hideModal() {
+    modal.classList.remove('show');
+}
+
+function showFinalModal() {
+    finalModal.classList.add('show');
+    createFallingEmojis();
+}
+
+function createFallingEmojis() {
+    const emojis = ['🔥', '🐵', '⚔️', '🎮', '🏆', '😂', '🤣', '💀', '👑', '💎'];
+    const container = document.querySelector('.falling-emojis');
+    for (let i = 0; i < 30; i++) {
+        setTimeout(() => {
+            const emoji = document.createElement('div');
+            emoji.className = 'emoji';
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.left = Math.random() * 100 + '%';
+            emoji.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            container.appendChild(emoji);
+            setTimeout(() => emoji.remove(), 4000);
+        }, i * 100);
+    }
+}
+
+claimBtn.addEventListener('mouseenter', function() {
+    if (attempts < maxAttempts - 1) {
+        moveButton();
+    }
+});
+
+claimBtn.addEventListener('click', function(e) {
+    attempts++;
+    if (attempts >= maxAttempts) {
+        showFinalModal();
+    } else {
+        showModal();
+        moveButton();
+    }
+});
+
+modalBtn.addEventListener('click', function() {
+    hideModal();
+});
+
+let seconds = 59;
+const timerEl = document.getElementById('timer');
+setInterval(() => {
+    seconds--;
+    if (seconds < 0) seconds = 59;
+    timerEl.textContent = '00:' + (seconds < 10 ? '0' : '') + seconds;
+}, 1000);
+
+setInterval(() => {
+    const countEl = document.getElementById('count');
+    let count = parseInt(countEl.textContent.replace(/,/g, ''));
+    count += Math.floor(Math.random() * 10) + 1;
+    countEl.textContent = count.toLocaleString();
+}, 2000);
+    </script>
+</body>
+</html>
